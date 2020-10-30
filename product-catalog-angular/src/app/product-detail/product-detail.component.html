@@ -1,0 +1,45 @@
+<div class="product-detail" *ngIf="product">
+    <div class="img-wrap">
+        <img src="{{product.image}}" alt="product">
+
+    </div>
+    <div class="info-wrap">
+        <div class="product-name">{{product.name}}</div>
+        <div class="product-price"> {{product.price}}</div>
+
+        <div class="product-quantity-wrap">
+            <div class="lbl-info lbl-quantity">Quantity</div>
+            <button class="btn btn-quantity btn-decrease" (click)="decreaseQuantity()" [disabled]="quantity <= 1">
+                <fa-icon [icon]="faMinus"></fa-icon></button>
+            <input type="number" maxLength={product.quantity.toString().length} readOnly value="{{quantity}}" min="0"
+                max="product.quantity - quantityInCart" class="input-quantity">
+            <button class="btn btn-quantity btn-increase" (click)="increaseQuantity()" [disabled]="quantity >= (product.quantity - quantityInCart)">
+                <fa-icon [icon]="faPlus"></fa-icon></button>
+        </div>
+        <button class="btn btn-buy" [disabled]="quantity > (product.quantity - quantityInCart)" (click)="addToCart()">Add to cart</button>
+        <div>
+            <div class="lbl-info">Product Brand</div>
+            <div class="product-brand">{{product.brand}}</div>
+        </div>
+        <div>
+            <div class="lbl-info">Product Color</div>
+            <div class="product-color" [ngStyle]="{'background-color': product.color}"></div>
+        </div>
+        <div>
+            <div class="lbl-info">Product Description</div>
+            <div class="product-description">{{product.description}}
+            </div>
+        </div>
+
+        <button class="btn btn-favorite" (click)="product.isFavored=!product.isFavored">
+            <fa-icon [icon]="faEmptyHeart" *ngIf="!product.isFavored">
+            </fa-icon>
+            <fa-icon [icon]="faFilledHeart" *ngIf="product.isFavored">
+            </fa-icon>
+            <label class="fav-label">Add to Wishlist</label>
+        </button>
+        <div>
+            <app-social-sharing></app-social-sharing>
+        </div>
+    </div>
+</div>

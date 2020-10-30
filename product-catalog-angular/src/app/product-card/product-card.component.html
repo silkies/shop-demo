@@ -1,0 +1,15 @@
+<div class="card">
+    <a [routerLink]="['../products/',product.id]" class="link">
+        <div class="product-image">
+            <img src="{{product.image}}">
+        </div>
+        <div class="product-name">{{product.name}}</div>
+        <div class="product-price">{{product.price}}</div>
+        <div class="product-color" [ngStyle]="{'background-color': product.color}"></div>
+    </a>
+    <button class="btn btn-buy" (click)="handleAddToCart()"[disabled]="product.quantity < 1 || isQuantInCartSame()">Add to Cart</button>
+    <div class="product-favorite">
+        <fa-icon [icon]="faEmptyHeart" *ngIf="!product.isFavored" (click)="product.isFavored=!product.isFavored"></fa-icon>
+        <fa-icon [icon]="faFilledHeart" *ngIf="product.isFavored" (click)="product.isFavored=!product.isFavored"></fa-icon>
+    </div>
+</div>
